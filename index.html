@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Year 7 Worldviews – Look, Cover, Check</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Century Gothic", "CenturyGothic", "AppleGothic", sans-serif;
+    background: #eaf2fb;
+    color: #1c3a5e;
+    margin: 0;
+    padding: 1.5rem 1rem 3rem 1rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 1.5rem; text-align: center; color: #1c3a5e; margin: 0 0 0.3rem 0; }
+  .subtitle { text-align: center; font-size: 1.05rem; color: #4a6d96; margin: 0 0 1.6rem 0; }
+  h2 { font-size: 1.25rem; color: #1c3a5e; margin: 0 0 0.8rem 0; }
+  h3, h4 { color: #1c3a5e; }
+
+  .card {
+    background: #ffffff; border-radius: 18px; padding: 1.2rem 1.4rem;
+    box-shadow: 0 3px 10px rgba(28, 58, 94, 0.12); margin-bottom: 1rem;
+  }
+
+  .stage-strip { display: flex; gap: 0.6rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+  .stage-box {
+    background: #ffffff; color: #4a6d96; border-radius: 999px;
+    padding: 0.4rem 1rem; font-size: 1.0rem; font-weight: normal;
+    flex: 1; text-align: center; min-width: 100px;
+    box-shadow: 0 2px 6px rgba(28, 58, 94, 0.10);
+  }
+  .stage-box.active { background: #2f6db5; color: #ffffff; font-weight: bold; }
+
+  .progress-outer { background: #ffffff; border-radius: 999px; height: 16px; margin-bottom: 1.2rem; box-shadow: inset 0 0 0 2px #cfe0f4; }
+  .progress-inner { background: #2f6db5; height: 100%; width: 0%; border-radius: 999px; transition: width 0.3s; }
+  .progress-label { font-size: 1.0rem; color: #4a6d96; margin: 0 0 0.5rem 0; }
+
+  .pair { border-bottom: 1.5px solid #e3eefb; padding: 0.5rem 0; }
+  .pair:last-child { border-bottom: none; }
+  .pair .plabel { font-weight: bold; display: block; font-size: 0.95rem; color: #4a6d96; }
+  .pair .pvalue { font-size: 1.05rem; color: #1c3a5e; }
+
+  .hint-box {
+    background: #f3f8fd; border-radius: 12px; padding: 0.7rem 1rem;
+    margin: 0.9rem 0; font-size: 1.0rem; color: #4a6d96;
+  }
+  .hint-box .htitle { font-weight: bold; color: #2f6db5; }
+
+  .question-box {
+    background: #2f6db5; color: #ffffff; border-radius: 14px;
+    padding: 0.9rem 1.1rem; margin-bottom: 1rem; font-size: 1.1rem; font-weight: bold;
+  }
+
+  .you-box { background: #f3f8fd; border-radius: 14px; padding: 0.9rem 1rem; margin-top: 1rem; }
+  .you-box h4 { margin: 0 0 0.4rem 0; font-size: 1.05rem; color: #2f6db5; }
+  .you-box p { margin: 0.25rem 0; font-size: 1.0rem; }
+
+  .field { margin: 0.9rem 0; }
+  .field label { display: block; font-weight: bold; font-size: 1.0rem; margin-bottom: 0.3rem; color: #1c3a5e; }
+  .field input, .field textarea {
+    width: 100%; border: 2px solid #cfe0f4; border-radius: 12px; padding: 0.55rem 0.7rem;
+    font-family: inherit; font-size: 1.05rem; background: #fbfdff; color: #1c3a5e;
+  }
+  .field input:focus, .field textarea:focus { outline: none; border-color: #2f6db5; }
+  .field textarea { min-height: 90px; resize: vertical; }
+  .letter-cue { font-size: 0.95rem; color: #4a6d96; margin-top: 0.3rem; }
+
+  .btn-row { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  button {
+    font-family: inherit; font-size: 1.05rem; font-weight: bold;
+    border: 2px solid #2f6db5; background: #2f6db5; color: #ffffff;
+    border-radius: 999px; padding: 0.6rem 1.5rem; cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  button:hover { background: #ffffff; color: #2f6db5; }
+
+  .section-btns { display: flex; flex-direction: column; gap: 0.9rem; margin: 1.2rem 0; }
+  .section-btns button { text-align: left; background: #ffffff; color: #1c3a5e; border-color: #ffffff; box-shadow: 0 3px 8px rgba(28, 58, 94, 0.14); }
+  .section-btns button:hover { background: #2f6db5; color: #ffffff; border-color: #2f6db5; }
+
+  details { background: #ffffff; border-radius: 18px; padding: 1rem 1.2rem; margin: 1.5rem 0; box-shadow: 0 3px 10px rgba(28, 58, 94, 0.12); }
+  summary { font-weight: bold; font-size: 1.1rem; cursor: pointer; color: #2f6db5; }
+
+  .ko-table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.95rem; }
+  .ko-table th, .ko-table td { border: 1.5px solid #cfe0f4; padding: 0.45rem 0.55rem; text-align: left; vertical-align: top; }
+  .ko-table th { background: #f3f8fd; color: #1c3a5e; }
+  .ko-table td { color: #1c3a5e; }
+  .ko-list { margin: 0.4rem 0 1rem 1.2rem; padding: 0; }
+  .ko-list li { margin: 0.3rem 0; font-size: 1.0rem; }
+  .ko-part { font-weight: bold; font-size: 1.1rem; color: #2f6db5; margin: 1.2rem 0 0.3rem 0; }
+
+  .attempt-note { font-size: 1.0rem; margin: 0 0 0.8rem 0; font-weight: bold; color: #2f6db5; }
+
+  .method-box ol { margin: 0.4rem 0 0 1.4rem; padding: 0; }
+  .method-box li { margin: 0.35rem 0; font-size: 1.0rem; }
+
+  .announce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+  @media (max-width: 500px) {
+    body { padding: 1rem 0.6rem 2rem 0.6rem; }
+    .card { padding: 0.9rem 1rem; }
+    h1 { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Year 7 Worldviews – Term 1 Assessment</h1>
+  <p class="subtitle">Look &middot; Cover &middot; Check</p>
+
+  <!-- START SCREEN -->
+  <div id="screen-start">
+    <div class="card method-box">
+      <h2>How to revise</h2>
+      <ol>
+        <li><strong>Look</strong> – read the information carefully.</li>
+        <li><strong>Cover</strong> – the box is hidden. Write what you remember, using the prompts.</li>
+        <li><strong>Check</strong> – compare your answers with the real information.</li>
+        <li><strong>Try again</strong> – have another go, or move on to the next card.</li>
+      </ol>
+    </div>
+
+    <h2>Choose what to revise</h2>
+    <div class="section-btns">
+      <button type="button" onclick="startDeck('part1')">Part 1 – Key facts about worldviews (7 table cards)</button>
+      <button type="button" onclick="startDeck('part2')">Part 2 – Ultimate questions (18 question cards)</button>
+      <button type="button" onclick="startDeck('all')">Everything – all 25 cards</button>
+    </div>
+
+    <details>
+      <summary>Study the full knowledge organiser first</summary>
+      <div id="fullKO"></div>
+    </details>
+  </div>
+
+  <!-- CARD SCREEN -->
+  <div id="screen-card" hidden>
+    <p class="progress-label" id="progressLabel"></p>
+    <div class="progress-outer"><div class="progress-inner" id="progressBar"></div></div>
+    <div class="stage-strip" id="stageStrip">
+      <div class="stage-box" id="st-look">LOOK</div>
+      <div class="stage-box" id="st-cover">COVER – WRITE IT</div>
+      <div class="stage-box" id="st-check">CHECK</div>
+    </div>
+    <div class="announce" aria-live="polite" id="announcer"></div>
+    <div id="cardArea"></div>
+  </div>
+
+  <!-- END SCREEN -->
+  <div id="screen-end" hidden>
+    <div class="card">
+      <h2>Well done – you have finished!</h2>
+      <p id="endSummary"></p>
+      <p><strong>Tip:</strong> come back tomorrow and try the same cards again. Anything you had to try twice is what to revise first.</p>
+    </div>
+    <div class="btn-row">
+      <button type="button" onclick="showStart()">Choose another section</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+"use strict";
+
+/* ---------- PART 1 DATA: table rows ---------- */
+var ROWS = [
+  { view: "Christianity", founder: "Jesus Christ \u2013 his life and teachings are the basis of the religion",
+    book: "The Bible", place: "A church",
+    belief: "Monotheistic \u2013 one God",
+    cues: ["J\u2026", "T\u2026 B\u2026", "A\u2026 c\u2026", "M\u2026 \u2013 o\u2026 G\u2026"] },
+  { view: "Islam", founder: "Muhammad \u2013 the final prophet of God",
+    book: "The Qur'an", place: "A mosque (masjid)",
+    belief: "Monotheistic \u2013 one God",
+    cues: ["M\u2026", "T\u2026 Q\u2026", "A\u2026 m\u2026", "M\u2026 \u2013 o\u2026 G\u2026"] },
+  { view: "Judaism", founder: "Moses is a key figure and prophet",
+    book: "The Torah", place: "A synagogue",
+    belief: "Monotheistic \u2013 one God",
+    cues: ["M\u2026", "T\u2026 T\u2026", "A\u2026 s\u2026", "M\u2026 \u2013 o\u2026 G\u2026"] },
+  { view: "Hinduism", founder: "No single founder",
+    book: "The Vedas", place: "A mandir",
+    belief: "Many gods and goddesses represent different aspects of one ultimate reality",
+    cues: ["N\u2026", "T\u2026 V\u2026", "A\u2026 m\u2026", "M\u2026 g\u2026"] },
+  { view: "Buddhism", founder: "Siddhartha Gautama \u2013 the Buddha",
+    book: "Buddhist scriptures", place: "A temple or monastery",
+    belief: "Ultimate goal: reach enlightenment and escape the cycle of rebirth, called nirvana",
+    cues: ["S\u2026 G\u2026", "B\u2026 s\u2026", "A\u2026 t\u2026", "U\u2026 g\u2026"] },
+  { view: "Sikhism", founder: "Guru Nanak \u2013 followed by ten Gurus in total",
+    book: "The Guru Granth Sahib", place: "A gurdwara",
+    belief: "Monotheistic \u2013 one God",
+    cues: ["G\u2026 N\u2026", "T\u2026 G\u2026 G\u2026 S\u2026", "A\u2026 g\u2026", "M\u2026 \u2013 o\u2026 G\u2026"] },
+  { view: "Humanism", founder: "No founder \u2013 a non-religious worldview",
+    book: "No holy book \u2013 uses reason, evidence and empathy", place: "No place of worship",
+    belief: "Live a good life without belief in gods; decide right and wrong using reason, empathy and the consequences of actions",
+    cues: ["N\u2026", "N\u2026 h\u2026 b\u2026", "N\u2026 p\u2026", "L\u2026 a\u2026 g\u2026 l\u2026"] }
+];
+
+var COL_LABELS = ["Founder / key figure", "Holy book", "Place of worship", "Key belief"];
+
+/* ---------- PART 2 DATA: question cards ---------- */
+var FACTS = [
+  { sec: "A", secTitle: "A \u00b7 Why do human beings ask ultimate questions?",
+    q: "What is an ultimate question?",
+    a: "A big question about meaning, purpose or reality without a simple or agreed answer.",
+    hint: "A b__ q______ about m______, p______ or r______ \u2026 without a s______ or a_____ answer." },
+  { sec: "A", secTitle: "A \u00b7 Why do human beings ask ultimate questions?",
+    q: "Why do human beings ask ultimate questions?",
+    a: "Answering them helps us make sense of the world and our place in it.",
+    hint: "Answering them h____ us make s______ of the w____ and our p____ in it." },
+  { sec: "A", secTitle: "A \u00b7 Why do human beings ask ultimate questions?",
+    q: "Name the four different beliefs and worldviews that developed to answer ultimate questions.",
+    a: "Animism, polytheism, monotheism, atheism.",
+    hint: "a________, p__________, m__________, a______" },
+  { sec: "A", secTitle: "A \u00b7 Why do human beings ask ultimate questions?",
+    q: "What is a worldview?",
+    a: "The way someone understands, interprets and responds to the world.",
+    hint: "The w__ someone u____________, i________ and r______ to the world." },
+
+  { sec: "B", secTitle: "B \u00b7 Should we question what we believe?",
+    q: "What is philosophy?",
+    a: "The study of life's ultimate questions; Greek for 'love of wisdom'.",
+    hint: "The s____ of l___'s u______ q______; G____ for 'l___ of w_____'." },
+  { sec: "B", secTitle: "B \u00b7 Should we question what we believe?",
+    q: "What is the difference between a belief and knowledge?",
+    a: "Belief: something you feel certain is true. Knowledge: you feel certain it is true and you can justify (explain) why it is true.",
+    hint: "B______: you f___ c______ it is true. K________: you can also j______ (e______) why it is t___." },
+  { sec: "B", secTitle: "B \u00b7 Should we question what we believe?",
+    q: "How did Socrates say we should test our beliefs?",
+    a: "Question everything, using Socratic questioning: deep, probing questions to test beliefs.",
+    hint: "Q______ e__________, using S______ questioning \u2013 d___, p______ questions." },
+  { sec: "B", secTitle: "B \u00b7 Should we question what we believe?",
+    q: "Socrates said 'The unexamined life is not worth living.' What does this mean?",
+    a: "Question your beliefs rather than just accept them.",
+    hint: "Q______ your b______ rather than j___ a______ them." },
+
+  { sec: "C", secTitle: "C \u00b7 Can we answer ultimate questions by thinking deeply? (Plato)",
+    q: "Where did Plato say true knowledge is found?",
+    a: "Within us \u2013 true knowledge is found inside ourselves.",
+    hint: "T___ k_______ is found w______ u_." },
+  { sec: "C", secTitle: "C \u00b7 Can we answer ultimate questions by thinking deeply? (Plato)",
+    q: "Why did Plato think our senses are unreliable?",
+    a: "They only show us imperfect examples of concepts like fairness (justice) and beauty.",
+    hint: "They only show i______ examples of c______ like f______ (j______) and b______." },
+  { sec: "C", secTitle: "C \u00b7 Can we answer ultimate questions by thinking deeply? (Plato)",
+    q: "How can we know perfect ideas, according to Plato?",
+    a: "Perfect ideas are built into our minds, and we can know them through reason (thinking deeply).",
+    hint: "P______ i____ are b____ i____ our m____; we know them through r______ (t______ d______)." },
+  { sec: "C", secTitle: "C \u00b7 Can we answer ultimate questions by thinking deeply? (Plato)",
+    q: "What is Plato's Allegory of the Cave?",
+    a: "Relying on the senses is like prisoners thinking shadows are real; philosophers realise shadows are only reflections of reality.",
+    hint: "P______ think the s______ are r___; philosophers realise they are only r________ of r______." },
+  { sec: "C", secTitle: "C \u00b7 Can we answer ultimate questions by thinking deeply? (Plato)",
+    q: "Explain Plato's dog example.",
+    a: "Your mind holds the perfect, unchangeable idea of a dog, letting you recognise imperfect dogs you see.",
+    hint: "Your m___ holds the p______, u________ idea of a d__, letting you r______ i______ dogs you see." },
+
+  { sec: "D", secTitle: "D \u00b7 Can observing nature answer ultimate questions? (Aristotle)",
+    q: "How did Aristotle think we can gain true knowledge?",
+    a: "Through our senses and observation; the senses are reliable.",
+    hint: "T______ our s______ and o__________; the senses are r______." },
+  { sec: "D", secTitle: "D \u00b7 Can observing nature answer ultimate questions? (Aristotle)",
+    q: "Why does the straw look bent in water? What does this show?",
+    a: "Our eyes accurately report how light is refracted in water.",
+    hint: "Our eyes a________ r______ how l____ is r______ in w____." },
+  { sec: "D", secTitle: "D \u00b7 Can observing nature answer ultimate questions? (Aristotle)",
+    q: "Why does the bent straw NOT prove that our senses are wrong?",
+    a: "Other senses show us that this does not mean the straw is bent.",
+    hint: "O____ senses show us that this does not m___ the straw is b____." },
+  { sec: "D", secTitle: "D \u00b7 Can observing nature answer ultimate questions? (Aristotle)",
+    q: "What is common sense, for Aristotle? What does it show?",
+    a: "The ability to draw information from all our senses together. It shows us that the senses are trustworthy.",
+    hint: "The ability to d___ information from a__ our senses t______. It shows the senses are t________." },
+  { sec: "D", secTitle: "D \u00b7 Can observing nature answer ultimate questions? (Aristotle)",
+    q: "Explain Aristotle's dog example.",
+    a: "You justify that something is a dog because you can see it looks like a dog.",
+    hint: "You j______ that something is a d__ because you can s__ it l____ like a d__." }
+];
+
+/* ---------- state ---------- */
+var deck = [];
+var idx = 0;
+var stage = "look";
+var attempts = 1;
+var lastInputs = ["", "", "", ""];
+
+function esc(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+/* ---------- full KO reference ---------- */
+function buildFullKO() {
+  var h = "";
+  h += "<p class='ko-part'>Part 1 \u00b7 Key facts about worldviews</p>";
+  h += "<table class='ko-table'><tr><th>Worldview</th><th>Founder / key figure</th><th>Holy book</th><th>Place of worship</th><th>Key belief</th></tr>";
+  for (var i = 0; i < ROWS.length; i++) {
+    var r = ROWS[i];
+    h += "<tr><td>" + esc(r.view) + "</td><td>" + esc(r.founder) + "</td><td>" + esc(r.book) +
+         "</td><td>" + esc(r.place) + "</td><td>" + esc(r.belief) + "</td></tr>";
+  }
+  h += "</table><p class='ko-part'>Part 2 \u00b7 Ultimate questions</p>";
+  var secs = ["A", "B", "C", "D"];
+  for (var s = 0; s < secs.length; s++) {
+    var sec = secs[s];
+    var list = FACTS.filter(function (f) { return f.sec === sec; });
+    h += "<p class='ko-part'>" + esc(list[0].secTitle) + "</p><ul class='ko-list'>";
+    for (var j = 0; j < list.length; j++) {
+      h += "<li>" + esc(list[j].a) + "</li>";
+    }
+    h += "</ul>";
+  }
+  document.getElementById("fullKO").innerHTML = h;
+}
+
+/* ---------- deck building ---------- */
+function startDeck(which) {
+  deck = [];
+  if (which === "part1" || which === "all") {
+    for (var i = 0; i < ROWS.length; i++) {
+      deck.push({ type: "row", title: ROWS[i].view, data: ROWS[i], partLabel: "Part 1 \u00b7 Key facts about worldviews" });
+    }
+  }
+  if (which === "part2" || which === "all") {
+    for (var j = 0; j < FACTS.length; j++) {
+      deck.push({ type: "fact", title: FACTS[j].secTitle, data: FACTS[j], partLabel: "Part 2 \u00b7 Ultimate questions" });
+    }
+  }
+  idx = 0; attempts = 1; stage = "look";
+  document.getElementById("screen-start").hidden = true;
+  document.getElementById("screen-end").hidden = true;
+  document.getElementById("screen-card").hidden = false;
+  renderCard();
+}
+
+function showStart() {
+  document.getElementById("screen-card").hidden = true;
+  document.getElementById("screen-end").hidden = true;
+  document.getElementById("screen-start").hidden = false;
+}
+
+/* ---------- rendering ---------- */
+function setStage(s) {
+  stage = s;
+  ["look", "cover", "check"].forEach(function (name) {
+    document.getElementById("st-" + name).className = "stage-box" + (name === s ? " active" : "");
+  });
+}
+
+function renderCard() {
+  var card = deck[idx];
+  document.getElementById("progressLabel").textContent =
+    "Card " + (idx + 1) + " of " + deck.length + " \u00b7 " + card.partLabel;
+  document.getElementById("progressBar").style.width = ((idx / deck.length) * 100) + "%";
+  setStage(stage);
+  var area = document.getElementById("cardArea");
+
+  if (stage === "look") {
+    document.getElementById("announcer").textContent = "Look. Read the information carefully.";
+    area.innerHTML =
+      "<div class='attempt-note'>LOOK \u2013 read it carefully</div>" +
+      (card.type === "row"
+        ? "<div class='card'><h3>" + esc(card.title) + "</h3>" + rowPairs(card.data) + "</div>"
+        : "<div class='question-box'>" + esc(card.title) + "</div>" +
+          "<div class='card'><h3>Answer</h3><p style='margin:0;'>" + esc(card.data.a) + "</p></div>") +
+      "<div class='btn-row'><button type='button' onclick='toCover()'>Cover and write</button></div>";
+  }
+
+  if (stage === "cover") {
+    document.getElementById("announcer").textContent = "Cover. Write what you remember, using the prompts.";
+    var html = "<div class='attempt-note'>COVER \u2013 write what you remember" +
+               (attempts > 1 ? " (attempt " + attempts + ")" : "") + "</div>";
+    if (card.type === "row") {
+      html += "<div class='question-box'>" + esc(card.title) + " \u2013 fill in the four facts from memory</div>";
+      html += "<div class='card'>";
+      for (var c = 0; c < 4; c++) {
+        html += "<div class='field'><label for='in" + c + "'>" + esc(COL_LABELS[c]) + "</label>" +
+                "<input id='in" + c + "' type='text' autocomplete='off'>" +
+                "<div class='letter-cue'>First-letter prompt: " + esc(card.data.cues[c]) + "</div></div>";
+      }
+      html += "</div>";
+    } else {
+      html += "<div class='question-box'>" + esc(card.data.q) + "</div>" +
+              "<div class='card'><div class='field'>" +
+              "<label for='inA'>Your answer</label>" +
+              "<textarea id='inA'></textarea></div>" +
+              "<div class='hint-box'><span class='htitle'>Prompt:</span> " + esc(card.data.hint) + "</div></div>";
+    }
+    html += "<div class='btn-row'><button type='button' onclick='toCheck()'>Check my answer</button></div>";
+    area.innerHTML = html;
+    var first = area.querySelector("input, textarea");
+    if (first) first.focus();
+  }
+
+  if (stage === "check") {
+    document.getElementById("announcer").textContent = "Check. Compare your answers with the information.";
+    var base =
+      "<div class='attempt-note'>CHECK \u2013 compare with the real information</div>" +
+      (card.type === "row"
+        ? "<div class='card'><h3>" + esc(card.title) + "</h3>" + rowPairs(card.data) + "</div>"
+        : "<div class='question-box'>" + esc(card.data.q) + "</div>" +
+          "<div class='card'><h3>Answer</h3><p style='margin:0;'>" + esc(card.data.a) + "</p></div>");
+    var you = "<div class='you-box'><h4>Your answers</h4>";
+    if (card.type === "row") {
+      for (var y = 0; y < 4; y++) {
+        var v = (lastInputs[y] || "").trim();
+        you += "<p><strong>" + esc(COL_LABELS[y]) + ":</strong> " + (v === "" ? "(left blank)" : esc(v)) + "</p>";
+      }
+    } else {
+      var va = (lastInputs[0] || "").trim();
+      you += "<p>" + (va === "" ? "(left blank)" : esc(va)) + "</p>";
+    }
+    you += "</div>";
+    var last = (idx === deck.length - 1);
+    area.innerHTML = base + you +
+      "<div class='btn-row'><button type='button' onclick='toCover()'>Try again</button>" +
+      "<button type='button' onclick='nextCard()'>" + (last ? "Finish" : "Next card") + "</button></div>";
+    area.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+function rowPairs(r) {
+  return "<div class='pair'><span class='plabel'>Founder / key figure</span><span class='pvalue'>" + esc(r.founder) + "</span></div>" +
+         "<div class='pair'><span class='plabel'>Holy book</span><span class='pvalue'>" + esc(r.book) + "</span></div>" +
+         "<div class='pair'><span class='plabel'>Place of worship</span><span class='pvalue'>" + esc(r.place) + "</span></div>" +
+         "<div class='pair'><span class='plabel'>Key belief</span><span class='pvalue'>" + esc(r.belief) + "</span></div>";
+}
+
+/* ---------- stage moves ---------- */
+function collectInputs() {
+  var card = deck[idx];
+  lastInputs = ["", "", "", ""];
+  if (card.type === "row") {
+    for (var i = 0; i < 4; i++) {
+      var el = document.getElementById("in" + i);
+      if (el) lastInputs[i] = el.value;
+    }
+  } else {
+    var ta = document.getElementById("inA");
+    if (ta) lastInputs[0] = ta.value;
+  }
+}
+
+function toCover() {
+  if (stage === "check") { attempts += 1; }
+  stage = "cover";
+  renderCard();
+}
+
+function toCheck() {
+  collectInputs();
+  stage = "check";
+  renderCard();
+}
+
+function nextCard() {
+  if (idx === deck.length - 1) {
+    document.getElementById("screen-card").hidden = true;
+    document.getElementById("endSummary").textContent =
+      "You worked through all " + deck.length + " cards using Look \u00b7 Cover \u00b7 Check.";
+    document.getElementById("screen-end").hidden = false;
+    window.scrollTo(0, 0);
+    return;
+  }
+  idx += 1; attempts = 1; stage = "look";
+  renderCard();
+}
+
+buildFullKO();
+</script>
+</body>
+</html>
