@@ -21,6 +21,16 @@
   h2 { font-size: 1.25rem; color: #1c3a5e; margin: 0 0 0.8rem 0; }
   h3, h4 { color: #1c3a5e; }
 
+  .home-row { text-align: right; margin-bottom: 0.6rem; }
+  .home-btn {
+    font-family: inherit; font-size: 0.95rem; font-weight: bold;
+    display: inline-block; color: #2f6db5; background: #ffffff;
+    border-radius: 999px; padding: 0.35rem 1.1rem; cursor: pointer;
+    box-shadow: 0 2px 6px rgba(28, 58, 94, 0.10);
+    transition: background 0.15s, color 0.15s;
+  }
+  .home-btn:hover { background: #2f6db5; color: #ffffff; }
+
   .card {
     background: #ffffff; border-radius: 18px; padding: 1.2rem 1.4rem;
     box-shadow: 0 3px 10px rgba(28, 58, 94, 0.12); margin-bottom: 1rem;
@@ -109,6 +119,10 @@
 </head>
 <body>
 <div class="wrap">
+
+  <div id="homeTop" class="home-row" style="display:none;">
+    <button type="button" class="home-btn" onclick="goHome()">Home</button>
+  </div>
 
   <h1>Year 7 Worldviews – Term 1 Assessment</h1>
   <p class="subtitle">Look &middot; Cover &middot; Check</p>
@@ -316,6 +330,12 @@ function buildFullKO() {
   document.getElementById("fullKO").innerHTML = h;
 }
 
+/* ---------- home button visibility ---------- */
+function updateHomeBtn() {
+  var onHome = !document.getElementById("screen-start").hidden;
+  document.getElementById("homeTop").style.display = onHome ? "none" : "block";
+}
+
 /* ---------- deck building ---------- */
 function startDeck(which) {
   deck = [];
@@ -333,13 +353,21 @@ function startDeck(which) {
   document.getElementById("screen-start").hidden = true;
   document.getElementById("screen-end").hidden = true;
   document.getElementById("screen-card").hidden = false;
+  updateHomeBtn();
   renderCard();
+}
+
+function goHome() {
+  deck = []; idx = 0; attempts = 1; stage = "look"; lastInputs = ["", "", "", ""];
+  showStart();
+  window.scrollTo(0, 0);
 }
 
 function showStart() {
   document.getElementById("screen-card").hidden = true;
   document.getElementById("screen-end").hidden = true;
   document.getElementById("screen-start").hidden = false;
+  updateHomeBtn();
 }
 
 /* ---------- rendering ---------- */
@@ -462,6 +490,7 @@ function nextCard() {
     document.getElementById("endSummary").textContent =
       "You worked through all " + deck.length + " cards using Look \u00b7 Cover \u00b7 Check.";
     document.getElementById("screen-end").hidden = false;
+    updateHomeBtn();
     window.scrollTo(0, 0);
     return;
   }
@@ -470,6 +499,7 @@ function nextCard() {
 }
 
 buildFullKO();
+updateHomeBtn();
 </script>
 </body>
 </html>
